@@ -1,21 +1,19 @@
 import React from 'react';
+import { AppContainer } from 'react-hot-loader';
 import { render } from 'react-dom';
-
-class Application extends React.Component {
-  render () {
-    return (
-      <div>
-        Hello from React refreshed? But whole pageyep
-      </div>
-    )
-  }
-};
+import App from './App';
 
 const rootElement = document.getElementById('root');
 
 const mount = Component => render(
-  <Application />,
+  <AppContainer>
+    <App />
+  </AppContainer>,
   rootElement
 );
 
-mount(Application);
+mount(App);
+
+if (module.hot) {
+  module.hot.accept('./App', () => { mount(App) })
+}
