@@ -1,24 +1,22 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { configureStore, history } from './store/configureStore';
-import Root from './Root';
-
-const store = configureStore();
+import { store, history } from './store/configureStore';
+import ApplicationContainer from './containers/ApplicationContainer';
 
 render(
     <AppContainer>
-        <Root store={store} history={history} />
+        <ApplicationContainer store={store} history={history} />
     </AppContainer>,
     document.getElementById('root')
 );
 
 if (module.hot) {
-    module.hot.accept('./Root', () => {
-        const NewRoot = require('./Root').default;
+    module.hot.accept('./containers/ApplicationContainer', () => {
+        const NewApp = require('./containers/ApplicationContainer').default;
         render(
             <AppContainer>
-                <NewRoot store={store} history={history} />
+                <NewApp store={store} history={history} />
             </AppContainer>,
             document.getElementById('root')
         );

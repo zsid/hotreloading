@@ -5,7 +5,7 @@ import {
 const AboutPage = () => (
   <div>
     <Link to="/">Home</Link>
-    Hello from about page big test serously working! looolamazing
+    Hello from about page big test serously working!nonon
   </div>
 );
 

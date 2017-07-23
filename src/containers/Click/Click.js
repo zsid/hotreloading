@@ -25,7 +25,7 @@ class Clickable extends Component {
     const { click, increment, doubleAsync } = this.props
     return (
       <p>
-        Clicked: {click} times
+        Clicked: {click}
         {' '}
         <button onClick={increment}>
           +

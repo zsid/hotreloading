@@ -2,17 +2,34 @@ import createHistory from 'history/createBrowserHistory';
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from './reducers';
+import thunk from 'redux-thunk';
 
 export const history = createHistory();
-const middleware = routerMiddleware(history);
 
-export function configureStore(initialState = {}) {
+const configureStore = (initialState = {}) => {
+    const enhancers = [];
+    const middleware = [
+        thunk,
+        routerMiddleware(history)
+    ];
+
+    if (process.env.NODE_ENV === 'development') {
+        const devToolsExtension = window.devToolsExtension;
+
+        if (typeof devToolsExtension === 'function') {
+            enhancers.push(devToolsExtension());
+        }
+    }
+
+    const composedEnhancers = compose(
+        applyMiddleware(...middleware),
+        ...enhancers
+    );
+
     const store = createStore(
         rootReducer,
         initialState,
-        compose(
-            applyMiddleware(middleware)
-        )
+        composedEnhancers
     );
 
     if (module.hot) {
@@ -25,3 +42,5 @@ export function configureStore(initialState = {}) {
 
     return store;
 }
+
+export const store = configureStore();

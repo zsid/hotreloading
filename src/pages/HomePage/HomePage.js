@@ -3,7 +3,7 @@ import Counter from '../../Counter';
 
 const HomePage = () => (
   <div>
-    Hello from bababa;
+    Hello from homepage;
     <Counter />
   </div>
 );
