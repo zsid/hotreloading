@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Click from './containers/Click/Click';
 
 export default class Counter extends Component {
   constructor(props) {
@@ -19,6 +20,11 @@ export default class Counter extends Component {
   }
 
   render() {
-    return <h2>hell yeuu: {this.state.counter}</h2>;
+    return (
+      <div>
+        <h2>Hmm No yes yes yes yeuu: {this.state.counter}</h2>
+        <Click />
+      </div>
+    );
   }
 }

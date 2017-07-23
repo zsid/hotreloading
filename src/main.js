@@ -1,19 +1,26 @@
 import React from 'react';
-import { AppContainer } from 'react-hot-loader';
 import { render } from 'react-dom';
-import App from './App';
+import { AppContainer } from 'react-hot-loader';
+import { configureStore, history } from './store/configureStore';
+import Root from './Root';
 
-const rootElement = document.getElementById('root');
+const store = configureStore();
 
-const mount = Component => render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
-  rootElement
+render(
+    <AppContainer>
+        <Root store={store} history={history} />
+    </AppContainer>,
+    document.getElementById('root')
 );
 
-mount(App);
-
 if (module.hot) {
-  module.hot.accept('./App', () => { mount(App) })
+    module.hot.accept('./Root', () => {
+        const NewRoot = require('./Root').default;
+        render(
+            <AppContainer>
+                <NewRoot store={store} history={history} />
+            </AppContainer>,
+            document.getElementById('root')
+        );
+    });
 }
