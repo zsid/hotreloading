@@ -1,24 +1,24 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { store, history } from './store/configureStore';
-import ApplicationContainer from './containers/ApplicationContainer';
+import { render } from 'react-dom';
+import { store, history } from './store';
 
-render(
-    <AppContainer>
-        <ApplicationContainer store={store} history={history} />
-    </AppContainer>,
-    document.getElementById('root')
+import App from './components/App';
+
+const mount = Component => (
+    render(
+        <AppContainer>
+            <Component store={store} history={history} />
+        </AppContainer>,
+        document.getElementById('root')
+    )
 );
 
+mount(App);
+
 if (module.hot) {
-    module.hot.accept('./containers/ApplicationContainer', () => {
-        const NewApp = require('./containers/ApplicationContainer').default;
-        render(
-            <AppContainer>
-                <NewApp store={store} history={history} />
-            </AppContainer>,
-            document.getElementById('root')
-        );
+    module.hot.accept('./components/App', () => {
+        const NewApp = require('./components/App').default;
+        mount(NewApp)
     });
 }

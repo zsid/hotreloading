@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import Click from './containers/Click/Click';
 
-export default class Counter extends Component {
+class Counter extends Component {
   constructor(props) {
     super(props);
-    this.state = { counter: 0 };
+    this.state = { 
+        counter: 0
+    };
   }
 
   componentDidMount() {
@@ -12,7 +13,9 @@ export default class Counter extends Component {
   }
 
   tick() {
-    this.setState({ counter: this.state.counter + 1 });
+    this.setState({
+      counter: this.state.counter + 1
+    });
   }
 
   componentWillUnmount() {
@@ -22,9 +25,10 @@ export default class Counter extends Component {
   render() {
     return (
       <div>
-        <h2>Hell from counter: {this.state.counter}</h2>
-        <Click />
+        <h2>Hello from Counter component. The count is: { this.state.counter }</h2>
       </div>
     );
   }
 }
+
+export default Counter;

@@ -1,10 +1,10 @@
 import { routerReducer as routing } from 'react-router-redux';
 import { combineReducers } from 'redux';
-import clickReducer from '../containers/Click/ClickDucks';
+import clickReducer from '../containers/ClickContainer/ClickDucks';
 
 const rootReducer = combineReducers({
     routing,
-    click: clickReducer
+    timesClicked: clickReducer
 });
 
 export default rootReducer;
