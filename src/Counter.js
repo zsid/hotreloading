@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Click from './containers/Click/Click';
+import {
+  Link
+} from 'react-router-dom';
 
 export default class Counter extends Component {
   constructor(props) {
@@ -22,6 +25,8 @@ export default class Counter extends Component {
   render() {
     return (
       <div>
+        <Link to="/about">About</Link>
+        <Link to="/">Home</Link>
         <h2>Hmm No yes yes yes yeuu: {this.state.counter}</h2>
         <Click />
       </div>

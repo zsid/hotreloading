@@ -2,8 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Provider} from 'react-redux';
 import {Route} from 'react-router-dom';
+
 import {ConnectedRouter} from 'react-router-redux';
 
+import AboutPage from './pages/AboutPage/';
 import App from './App';
 
 export default function Root({store, history}) {
@@ -11,7 +13,10 @@ export default function Root({store, history}) {
         <Provider store={store}>
             <div>
                 <ConnectedRouter history={history}>
-                    <Route path="/" component={App}/>
+                    <div>
+                        <Route exact path="/" component={App}/>
+                        <Route exact path="/about" component={AboutPage}/>
+                    </div>
                 </ConnectedRouter>
             </div>
         </Provider>
