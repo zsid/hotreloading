@@ -1,5 +1,7 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -37,6 +39,7 @@ module.exports = {
 
   module: {
     rules: [
+      // Load Javascript
       {
         test: /\.js$/,
         use: [
@@ -44,6 +47,60 @@ module.exports = {
         ],
         exclude: /node_modules/
       },
+
+      // Load Scss
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader',
+            options: {
+              sourceMap: true
+            }
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 3,
+              localIdentName: '[name]__[local]___[hash:base64:5]&sourceMap&-minimize',
+              minimize: true,
+              modules: true,
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+              plugins: [
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9', // React doesn't support IE8 anyway
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            }
+          },
+          {
+            loader: 'resolve-url-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              modules: true,
+              sourceMap: true,
+            }
+          }
+        ]
+      }
+
     ]
   },
 
