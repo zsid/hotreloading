@@ -2,6 +2,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BabiliPlugin = require('babili-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const cssnano = require('cssnano');
 
 const autoprefixer = require('autoprefixer');
 const path = require('path');
@@ -18,7 +20,20 @@ const extractScss = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: PATHS.app,
+  entry: {
+    app: PATHS.app,
+    vendor: [
+      'history',
+      'prop-types',
+      'react',
+      'react-dom',
+      'react-redux',
+      'react-router-dom',
+      'react-router-redux',
+      'redux',
+      'redux-thunk',
+    ],
+  },
   output: {
     path: PATHS.build,
     filename: '[name].[chunkhash:8].js',
@@ -130,9 +145,24 @@ module.exports = {
     extractScss,
     // Minify Javascript
     new BabiliPlugin(),
-
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: {
+        options: {
+          discardComments: {
+            removeAll: true,
+          },
+          // Run cssnano in safe mode to avoid
+          // potentially unsafe transformations.
+          safe: true,
+        },
+      },
+      canPrint: false,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
     new CleanWebpackPlugin([PATHS.build]),
-
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
