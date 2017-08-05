@@ -99,8 +99,30 @@ module.exports = {
             }
           }
         ]
-      }
+      },
 
+      // Load fonts
+      {
+        test: /\.(eot|ttf|woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[hash:8].[ext]'
+          }
+        }
+      },
+
+      // Load Images
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: '[name].[hash:8].[ext]',
+          }
+        }
+      }
     ]
   },
 
@@ -111,14 +133,14 @@ module.exports = {
     }),
     new CleanWebpackPlugin([PATHS.build]),
 
-    new webpack.HotModuleReplacementPlugin(),
     // enable HMR globally
+    new webpack.HotModuleReplacementPlugin(),
 
-    new webpack.NamedModulesPlugin(),
     // prints more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
 
-    new webpack.NoEmitOnErrorsPlugin(),
     // do not emit compiled assets that include errors
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 
   devServer: {
