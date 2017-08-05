@@ -7,7 +7,7 @@ import './CoreLayout.scss';
 const CoreLayout = ({ children }) => (
   <div>
     <div>
-      <Link to="/">Home</Link>  
+      <Link to="/">Home</Link>
       <Link to="/about">About</Link>
     </div>
     { children }

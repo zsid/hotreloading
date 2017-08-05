@@ -8,7 +8,7 @@ const webpack = require('webpack');
 const PATHS = {
   app: `${path.resolve(__dirname, 'src')}/main.js`,
   build: path.resolve(__dirname, 'dist'),
-  htmlTemplate: `${path.resolve(__dirname, 'public')}/index.html`
+  htmlTemplate: `${path.resolve(__dirname, 'public')}/index.html`,
 };
 
 module.exports = {
@@ -24,11 +24,11 @@ module.exports = {
     // only- means to only hot reload for successful updates
     'webpack/hot/only-dev-server',
 
-    PATHS.app
+    PATHS.app,
   ],
 
   devtool: 'inline-source-map',
-  
+
   output: {
     path: PATHS.build,
     filename: '[name].js',
@@ -43,9 +43,20 @@ module.exports = {
       {
         test: /\.js$/,
         use: [
-          'babel-loader'
+          'babel-loader',
         ],
-        exclude: /node_modules/
+        exclude: /node_modules/,
+      },
+
+      // Lint Javascript
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        loader: 'eslint-loader',
+        options: {
+          emitWarning: true,
+        },
       },
 
       // Load Scss
@@ -55,8 +66,8 @@ module.exports = {
           {
             loader: 'style-loader',
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: 'css-loader',
@@ -66,7 +77,7 @@ module.exports = {
               minimize: true,
               modules: true,
               sourceMap: true,
-            }
+            },
           },
           {
             loader: 'postcss-loader',
@@ -83,7 +94,7 @@ module.exports = {
                   flexbox: 'no-2009',
                 }),
               ],
-            }
+            },
           },
           {
             loader: 'resolve-url-loader',
@@ -96,9 +107,9 @@ module.exports = {
             options: {
               modules: true,
               sourceMap: true,
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
 
       // Load fonts
@@ -107,9 +118,9 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[hash:8].[ext]'
-          }
-        }
+            name: '[name].[hash:8].[ext]',
+          },
+        },
       },
 
       // Load Images
@@ -120,10 +131,10 @@ module.exports = {
           options: {
             limit: 10000,
             name: '[name].[hash:8].[ext]',
-          }
-        }
-      }
-    ]
+          },
+        },
+      },
+    ],
   },
 
   plugins: [
@@ -146,11 +157,28 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 3000,
-
+    overlay: {
+      errors: true,
+      warnings: true,
+    },
     // respond to 404s with index.html    
     historyApiFallback: true,
 
     // enable HMR on the server    
     hot: true,
-  }
-}
+  },
+  // Some libraries import Node modules but don't use them in the browser.
+  // Tell Webpack to provide empty mocks for them so importing them works.
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+  },
+  // Turn off performance hints during development because we don't do any
+  // splitting or minification in interest of speed. These warnings become
+  // cumbersome.
+  performance: {
+    hints: false,
+  },
+};

@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 import routes from '../../routes';
 
 const App = ({ store, history }) => (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        { routes }
-      </ConnectedRouter>
-    </Provider>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      { routes }
+    </ConnectedRouter>
+  </Provider>
 );
 
 App.propTypes = {

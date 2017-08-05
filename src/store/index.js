@@ -8,40 +8,40 @@ import rootReducer from './reducers';
 export const history = createHistory();
 
 export const configureStore = (initialState = {}) => {
-    const enhancers = [];
-    const middleware = [
-        thunk,
-        routerMiddleware(history)
-    ];
+  const enhancers = [];
+  const middleware = [
+    thunk,
+    routerMiddleware(history),
+  ];
 
-    if (process.env.NODE_ENV === 'development') {
-        const devToolsExtension = window.devToolsExtension;
+  if (process.env.NODE_ENV === 'development') {
+    const devToolsExtension = window.devToolsExtension;
 
-        if (typeof devToolsExtension === 'function') {
-            enhancers.push(devToolsExtension());
-        }
+    if (typeof devToolsExtension === 'function') {
+      enhancers.push(devToolsExtension());
     }
+  }
 
-    const composedEnhancers = compose(
-        applyMiddleware(...middleware),
-        ...enhancers
-    );
+  const composedEnhancers = compose(
+    applyMiddleware(...middleware),
+    ...enhancers,
+  );
 
-    const store = createStore(
-        rootReducer,
-        initialState,
-        composedEnhancers
-    );
+  const store = createStore(
+    rootReducer,
+    initialState,
+    composedEnhancers,
+  );
 
-    if (module.hot) {
-        // Enable webpack hot module replacement for reducers
-        module.hot.accept('./reducers', () => {
-            const nextRootReducer = require('./reducers');
-            store.replaceReducer(nextRootReducer)
-        })
-    }
+  if (module.hot) {
+    // Enable webpack hot module replacement for reducers
+    module.hot.accept('./reducers', () => {
+      const nextRootReducer = require('./reducers');
+      store.replaceReducer(nextRootReducer);
+    });
+  }
 
-    return store;
-}
+  return store;
+};
 
 export const store = configureStore();

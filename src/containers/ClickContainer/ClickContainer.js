@@ -1,39 +1,34 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import { increment, doubleAsync } from './ClickDucks';
 
-class ClickContainer extends Component {
-  render() {
-    const { timesClicked, increment, doubleAsync } = this.props
-
-    return (
-      <div>
-        <h3>Hello from ClickContainer. Times clicked: { timesClicked }</h3>
-        <button onClick={increment}>
-          Increase by 1
-        </button>
-        <button onClick={doubleAsync}>
-          Double Async
-        </button>
-      </div>
-    )
-  }
-}
+const ClickContainer = ({ timesClicked, incrementClick, doubleAsyncClick }) => (
+  <div>
+    <h3>Hello from ClickContainer. Times clicked: { timesClicked }</h3>
+    <button onClick={incrementClick}>
+        Increase by 1
+    </button>
+    <button onClick={doubleAsyncClick}>
+        Double Async
+    </button>
+  </div>
+);
 
 ClickContainer.propTypes = {
-  increment: PropTypes.func.isRequired,
-  doubleAsync: PropTypes.func.isRequired
-}
+  incrementClick: PropTypes.func.isRequired,
+  doubleAsyncClick: PropTypes.func.isRequired,
+  timesClicked: PropTypes.number.isRequired,
+};
 
 const mapDispatchToProps = {
-  increment : () => increment(),
-  doubleAsync
-}
+  incrementClick: () => increment(),
+  doubleAsyncClick: doubleAsync,
+};
 
-const mapStateToProps = (state) => ({
-  timesClicked: state.timesClicked
-})
+const mapStateToProps = state => ({
+  timesClicked: state.timesClicked,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClickContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ClickContainer);

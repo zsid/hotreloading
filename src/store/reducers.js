@@ -3,8 +3,8 @@ import { combineReducers } from 'redux';
 import clickReducer from '../containers/ClickContainer/ClickDucks';
 
 const rootReducer = combineReducers({
-    routing,
-    timesClicked: clickReducer
+  routing,
+  timesClicked: clickReducer,
 });
 
 export default rootReducer;
