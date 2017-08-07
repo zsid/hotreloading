@@ -162,6 +162,10 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
     }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity,
+    }),
     new CleanWebpackPlugin([PATHS.build]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
