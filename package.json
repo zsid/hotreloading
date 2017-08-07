@@ -8,7 +8,7 @@
     "build": "webpack --env production --config ./webpack.config.production.js --progress --profile --colors",
     "eslint": "./node_modules/.bin/eslint src/",
     "eslint:fix": "./node_modules/.bin/eslint src/ --fix",
-    "stats": "webpack --env production --profile --json > stats.json"
+    "stats": "webpack --env production --config ./webpack.config.production.js --profile --json > stats.json"
   },
   "keywords": [],
   "author": "",
