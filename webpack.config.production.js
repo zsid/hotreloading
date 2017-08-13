@@ -125,7 +125,7 @@ module.exports = {
 
       // Load Images
       {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        test: /\.(png|jpg|jpeg|svg|gif)$/,
         use: {
           loader: 'url-loader',
           options: {
