@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Click from '../../containers/ClickContainer';
 import Counter from '../../components/Counter';
 

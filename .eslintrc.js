@@ -10,13 +10,14 @@ module.exports = {
         "allowImportExportEverywhere": true,
     },
     "rules": {
-      "react/jsx-filename-extension": [WARN, { "extensions": [".js", ".jsx"] }],
-      "react/forbid-prop-types": OFF,
       "dot-notation": OFF,
-      "react/no-array-index-key": OFF,
-      "react/require-default-props": OFF,
       "global-require": OFF,
       "import/no-extraneous-dependencies": OFF,
+      "prefer-destructuring": OFF,
+      "react/forbid-prop-types": OFF,
+      "react/jsx-filename-extension": [WARN, { "extensions": [".js", ".jsx"] }],
+      "react/no-array-index-key": OFF,
+      "react/require-default-props": OFF
     },
     "env": {
       "browser": true,
